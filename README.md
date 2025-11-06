@@ -1,0 +1,2 @@
+# woracle
+a wordle solver
