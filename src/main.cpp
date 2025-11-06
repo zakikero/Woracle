@@ -1,14 +1,9 @@
-#include <QApplication>
-#include "MainWindow.h"
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
-    app.setApplicationName("Woracle");
-    app.setApplicationVersion("1.0");
-    
-    MainWindow window;
-    window.show();
-    
-    return app.exec();
+
+
+    std::cout << "yooo";
+    return 0;
 }

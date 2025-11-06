@@ -1,73 +1,55 @@
-# Woracle - Wordle Solver
+# Woracle
 
-A C++ application with Qt5 GUI for solving Wordle puzzles.
+Projet C++ minimal (C++20) initialisé pour développer un solveur Wordle en ligne de commande. L'ancienne dépendance à Qt a été retirée pour repartir de zéro.
 
-![Woracle UI](https://github.com/user-attachments/assets/499a232b-c239-4453-ba5f-6b30813f9ce9)
+## Prérequis
 
-## Features
+- CMake >= 3.10
+- Compilateur C++20 (MSVC, GCC, Clang)
 
-- Clean Qt5-based graphical user interface
-- Input fields for guesses and feedback
-- Real-time word suggestions based on Wordle feedback
-- Built-in vocabulary of ~500 common 5-letter words
-- Constraint-based filtering system
-
-## Prerequisites
-
-- CMake 3.10 or higher
-- C++17 compatible compiler (GCC, Clang, or MSVC)
-- Qt5 development libraries (Core and Widgets)
-
-### Installing Qt5 on Ubuntu/Debian:
-```bash
-sudo apt-get install qt5-qmake qtbase5-dev qtbase5-dev-tools
-```
-
-### Installing Qt5 on macOS (with Homebrew):
-```bash
-brew install qt@5
-```
-
-## Building
+## Construction
 
 ```bash
 mkdir build
 cd build
 cmake ..
-make
+cmake --build . --config Release
 ```
 
-## Running
+Sous Windows avec plusieurs générateurs installés, vous pouvez préciser par exemple:
+```bash
+cmake -G "MinGW Makefiles" ..
+```
 
+## Exécution
+
+Après compilation:
 ```bash
 ./woracle
 ```
+Sous Windows (MSVC):
+```bash
+Release\\woracle.exe
+```
 
-## Usage
-
-1. **Enter Your Guess**: Type a 5-letter word (e.g., "CRANE")
-2. **Enter Feedback**: Use the feedback pattern from Wordle:
-   - `g` = Green (correct letter in correct position)
-   - `y` = Yellow (correct letter in wrong position)
-   - `b` = Black (letter not in word)
-   
-   Example: If you guessed "CRANE" and got ⬛🟨⬛⬛🟩, enter `bybbg`
-
-3. **Get Suggestions**: Click the "Get Suggestions" button to see possible words
-4. **Reset**: Click "Reset" to start a new game
-
-## Project Structure
-
+## Structure
 ```
 woracle/
-├── CMakeLists.txt          # CMake build configuration
+├── CMakeLists.txt
 ├── src/
-│   ├── main.cpp            # Application entry point
-│   ├── MainWindow.h/.cpp   # Main GUI window
-│   └── WordleSolver.h/.cpp # Wordle solving logic
+│   ├── main.cpp
+│   ├── WordleSolver.h/.cpp
+├── tests/
+│   └── test_solver.cpp
 └── README.md
 ```
 
-## License
+## TODO (idées de démarrage)
+- Améliorer la logique de filtrage pour les lettres dupliquées
+- Ajouter une classe `WordleSolver` plus avancée (scoring)
+- Implémenter le filtrage par feedback (g,y,b) plus strict
+- Ajouter tests unitaires supplémentaires (couverture doublons)
+- Support lecture d'un fichier de mots
 
-See LICENSE file for details.
+## Licence
+Voir fichier LICENSE.

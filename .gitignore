@@ -1,69 +1,25 @@
-# Prerequisites
-*.d
+# Build directories
+/build/
+/cmake-build-debug/
+/cmake-build-release/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
+# IDE files
+*.user
+*.user.*
+*.vcxproj*
+*.code-workspace
+
+# Compiled binaries
+*.exe
+*.dll
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
 *.pdb
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# debug information files
-*.dwo
-
-# CMake build directories
-build/
-cmake-build-*/
+# CMake cache files
 CMakeCache.txt
 CMakeFiles/
-cmake_install.cmake
+Testing/
 Makefile
+cmake_install.cmake
+install_manifest.txt
 
-# Qt specific
-*.autosave
-moc_*.cpp
-moc_*.h
-qrc_*.cpp
-ui_*.h
-*.pro.user
-*.pro.user.*
-
-# IDE specific
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# CodeQL analysis
-_codeql_build_dir/
-_codeql_detected_source_root
