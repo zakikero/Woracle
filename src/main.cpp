@@ -7,9 +7,9 @@
 
 using namespace std;
 
-const string DEFAULT_DICTIONNARY_PATH = "./fiveLetterWords/words.txt";
+const string DEFAULT_DICTIONARY_PATH = "./fiveLetterWords/words.txt";
 
-vector<string> readDictionnary(const string &path) {
+vector<string> readDictionary(const string &path) {
     ifstream wordReader(path);
     vector<string> dictionary;
     string word;
@@ -26,11 +26,11 @@ vector<string> readDictionnary(const string &path) {
     return dictionary;
 }
 
-vector<string> timedReadDictionnary(const string &path) {
+vector<string> timedReadDictionary(const string &path) {
     const chrono::time_point<chrono::system_clock> start =
             chrono::high_resolution_clock::now();
 
-    vector<string> dictionary = readDictionnary(path);
+    vector<string> dictionary = readDictionary(path);
 
     const chrono::time_point<chrono::system_clock> end = chrono::high_resolution_clock::now();
     const chrono::duration<long long, ratio<1, 1000> > duration = std::chrono::duration_cast<chrono::milliseconds>(end - start);
@@ -42,7 +42,7 @@ vector<string> timedReadDictionnary(const string &path) {
 
 int main(int argc, char *argv[]) {
 
-    vector<string> dictionary = timedReadDictionnary(DEFAULT_DICTIONNARY_PATH);
+    vector<string> dictionary = timedReadDictionary(DEFAULT_DICTIONARY_PATH);
 
     return 0;
 }
