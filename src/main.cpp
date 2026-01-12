@@ -9,12 +9,6 @@ using namespace std;
 
 const string DEFAULT_DICTIONNARY_PATH = "./fiveLetterWords/words.txt";
 
-string readWord(ifstream &wordReader) {
-    string word;
-    getline(wordReader, word);
-    return word;
-}
-
 vector<string> readDictionnary(const string &path) {
     ifstream wordReader(path);
     vector<string> dictionary;
