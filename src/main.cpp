@@ -16,10 +16,8 @@ vector<string> readDictionnary(const string &path) {
 
     cout << "Reading dictionary from " << path << endl;
     while (getline(wordReader, word)) {
-        cout << word << endl;
         dictionary.push_back(word);
     }
-    cout << dictionary.size() << endl;
     cout << "Finished reading dictionary." << endl;
 
     wordReader.close();
