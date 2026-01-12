@@ -22,7 +22,6 @@ vector<string> readDictionnary(const string &path) {
     cout << dictionary.size() << endl;
     cout << "Finished reading dictionary." << endl;
 
-    wordReader.close();
     return dictionary;
 }
 
