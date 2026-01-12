@@ -29,7 +29,7 @@ vector<string> timedReadDictionnary(const string &path) {
     const chrono::time_point<chrono::system_clock> start =
             chrono::high_resolution_clock::now();
 
-    vector<string> dictionary = readDictionnary(path);
+    vector<string> dictionary = readDictionary(path);
 
     const chrono::time_point<chrono::system_clock> end = chrono::high_resolution_clock::now();
     const chrono::duration<long long, ratio<1, 1000> > duration = std::chrono::duration_cast<chrono::milliseconds>(end - start);
