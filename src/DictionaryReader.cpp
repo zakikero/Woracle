@@ -20,7 +20,7 @@ std::vector<std::string> readDictionary(const std::string& path)
     std::string word;
 
     std::cout << "Reading dictionary from " << path << std::endl;
-    while (getline(wordReader, word))
+    while (std::getline(wordReader, word))
     {
         // cout << word << endl;
         dictionary.push_back(word);
