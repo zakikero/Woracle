@@ -9,6 +9,8 @@ set(SOURCES
         include/dictionaryReader.h
         src/dictionaryReader.cpp
         include/WordleSolver.h
+        src/WordleSolver.cpp
+        include/WordleSolver.h
 )
 
 add_executable(woracle ${SOURCES})
