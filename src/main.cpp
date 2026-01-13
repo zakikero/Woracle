@@ -7,16 +7,18 @@
 
 using namespace std;
 
-const string DEFAULT_DICTIONNARY_PATH = "./fiveLetterWords/words.txt";
+const string DEFAULT_DICTIONARY_PATH = "./fiveLetterWords/words.txt";
 
-vector<string> readDictionnary(const string &path) {
+vector<string> readDictionary(const string &path) {
     ifstream wordReader(path);
+    if (wordReader.is_open()) throw std::runtime_error("Could not open file at: " + path);
+
     vector<string> dictionary;
     string word;
 
     cout << "Reading dictionary from " << path << endl;
     while (getline(wordReader, word)) {
-        cout << word << endl;
+        // cout << word << endl;
         dictionary.push_back(word);
     }
     cout << dictionary.size() << endl;
@@ -25,7 +27,7 @@ vector<string> readDictionnary(const string &path) {
     return dictionary;
 }
 
-vector<string> timedReadDictionnary(const string &path) {
+vector<string> timedReadDictionary(const string &path) {
     const chrono::time_point<chrono::system_clock> start =
             chrono::high_resolution_clock::now();
 
@@ -41,7 +43,10 @@ vector<string> timedReadDictionnary(const string &path) {
 
 int main(int argc, char *argv[]) {
 
-    vector<string> dictionary = timedReadDictionnary(DEFAULT_DICTIONNARY_PATH);
+    vector<string> dictionary = timedReadDictionary(DEFAULT_DICTIONARY_PATH);
+
+    cout << "input the word FLUTE to start and give me the color of each letters in sequence \nfor example : ygbyb " << endl;
+
 
     return 0;
 }
