@@ -94,9 +94,10 @@ void WordleSolver::filterOutYellowLetters() {
                       return yellowExclusionsMap.isWordExcluded(word);
                   });
     std::erase_if(possibleWords, [this](const std::string &word) {
-        return std::ranges::any_of(word, [this](const char &letter) {
-                return !yellowLetters.contains(letter);
-            });
+        // Remove words that do not contain all known yellow letters
+        return std::ranges::any_of(yellowLetters, [&word](const char &yellowLetter) {
+            return word.find(yellowLetter) == std::string::npos;
+        });
     });
 }
 
