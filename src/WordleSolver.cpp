@@ -31,11 +31,15 @@ void WordleSolver::processGuessResults(const std::string &wordGuessed, const std
 std::string WordleSolver::getNextWordGuess() {
     printGuessesStack();
 
-    const std::string nextGuess = *possibleWords.begin();
+    if (possibleWords.empty()) {
+        throw std::runtime_error("No possible words remaining for the next guess.");
+    }
+
+    const std::string nextGuess = possibleWords.front();
     std::cout << "Possible words remaining: " << possibleWords.size() << std::endl;
     std::cout << "next guess: " << nextGuess << std::endl;
 
-    return possibleWords.front();
+    return nextGuess;
 }
 
 void WordleSolver::printGuessesStack() {
