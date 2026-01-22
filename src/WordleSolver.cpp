@@ -35,7 +35,12 @@ void WordleSolver::processGuessResults(const std::string &wordGuessed, const std
             // (or 0 if none were green/yellow)
             if (greenYellowCount.contains(letter)) {
                 // There are some green/yellow instances, so exact count is known
-                letterExactCount[letter] = greenYellowCount[letter];
+                // Only set if we haven't determined the count yet, or verify consistency
+                if (!letterExactCount.contains(letter)) {
+                    letterExactCount[letter] = greenYellowCount[letter];
+                }
+                // Note: if letterExactCount already has this letter, the count should be consistent
+                // across guesses (the actual count in the solution doesn't change)
             } else {
                 // No green/yellow instances, so this letter doesn't appear at all
                 addBlackLetter(letter);
@@ -112,12 +117,7 @@ void WordleSolver::filterOutBlackLetters() {
                       
                       // Check if word has the exact count for letters with known exact counts
                       for (const auto &[letter, exactCount] : letterExactCount) {
-                          int count = 0;
-                          for (const char &c : word) {
-                              if (c == letter) {
-                                  count++;
-                              }
-                          }
+                          int count = std::count(word.begin(), word.end(), letter);
                           // Word must have exactly this many of this letter
                           if (count != exactCount) {
                               return true;
