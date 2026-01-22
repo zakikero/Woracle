@@ -31,7 +31,8 @@ int main() {
     WordleSolver solver(timedReadDictionary(DEFAULT_DICTIONARY_PATH));
 
     std::string codeInput;
-    std::string currentGuess = "flute";
+    std::string currentGuess = solver.getInitialGuess();
+
     while (true) {
         std::cout << "Current guess :\t" << toUpper(currentGuess) << std::endl;
 
