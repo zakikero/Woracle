@@ -24,34 +24,21 @@ void WordleSolver::processGuessResults(const std::string &wordGuessed, const std
     }
     addGuess(wordGuessed, codeInput);
 
-    // First pass: count green and yellow letters to know the minimum count
     std::unordered_map<char, int> greenYellowCount;
     for (size_t i = 0; i < codeInput.length(); i++) {
         char letter = wordGuessed[i];
-        char codeChar = codeInput[i];
-
-        if (codeChar == 'g' || codeChar == 'y') {
+        if (const char codeChar = codeInput[i];
+            codeChar == 'g' || codeChar == 'y') {
             greenYellowCount[letter]++;
         }
     }
 
-    // Second pass: process each letter
     for (size_t i = 0; i < codeInput.length(); i++) {
         char letter = wordGuessed[i];
-
         if (const char codeChar = codeInput[i]; codeChar == 'b') {
-            // A black letter means the solution has exactly the count we found in green/yellow
-            // (or 0 if none were green/yellow)
-            if (greenYellowCount.contains(letter)) {
-                // There are some green/yellow instances, so exact count is known
-                // Only set if we haven't determined the count yet, or verify consistency
-                if (!letterExactCount.contains(letter)) {
-                    letterExactCount[letter] = greenYellowCount[letter];
-                }
-                // Note: if letterExactCount already has this letter, the count should be consistent
-                // across guesses (the actual count in the solution doesn't change)
+            if (greenYellowCount.contains(letter) && !letterExactCount.contains(letter)) {
+                letterExactCount[letter] = greenYellowCount[letter];
             } else {
-                // No green/yellow instances, so this letter doesn't appear at all
                 addBlackLetter(letter);
             }
         } else if (codeChar == 'y') {
@@ -67,8 +54,7 @@ void WordleSolver::processGuessResults(const std::string &wordGuessed, const std
 }
 
 std::string WordleSolver::getNextWordGuess() const {
-    printGuessesStack();
-
+    // printGuessesStack();
     if (possibleWords.empty()) {
         throw std::runtime_error("No possible words remaining for the next guess.");
     }

@@ -14,6 +14,8 @@ set(SOURCES
         include/SolutionMatcher.h
         src/PositionalExclusionMap.cpp
         include/PositionalExclusionMap.h
+        include/HelperFunctions.h
+        src/HelperFunctions.cpp
 )
 
 add_executable(woracle ${SOURCES})
