@@ -2,8 +2,8 @@
 // Created by Admin on 2026-01-16.
 //
 
-#ifndef WORACLE_REGEXBUILDER_H
-#define WORACLE_REGEXBUILDER_H
+#ifndef WORACLE_SOLUTIONMATCHER_H
+#define WORACLE_SOLUTIONMATCHER_H
 #include <string>
 
 class SolutionMatcher {
@@ -25,4 +25,4 @@ private:
     std::string solutionPattern;
 };
 
-#endif //WORACLE_REGEXBUILDER_H
+#endif //WORACLE_SOLUTIONMATCHER_H
