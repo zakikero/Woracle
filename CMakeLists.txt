@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCES
         main.cpp
-        include/dictionaryReader.h
-        src/dictionaryReader.cpp
+        include/DictionaryReader.h
+        src/DictionaryReader.cpp
         include/WordleSolver.h
         src/WordleSolver.cpp
         include/WordleSolver.h
