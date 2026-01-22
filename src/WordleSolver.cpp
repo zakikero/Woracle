@@ -109,7 +109,7 @@ void WordleSolver::filterOutBlackLetters() {
     std::erase_if(possibleWords,
                   [this](const std::string &word) {
                       // Check if word contains any truly black letters (letters not in the solution at all)
-                      for (const char &blackLetter : blackLetters) {
+                      for (const char blackLetter : blackLetters) {
                           if (word.find(blackLetter) != std::string::npos) {
                               return true;
                           }
