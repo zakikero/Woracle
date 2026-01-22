@@ -5,6 +5,7 @@
 #ifndef WORACLE_WORDLESOLVER_H
 #define WORACLE_WORDLESOLVER_H
 #include <queue>
+#include <random>
 #include <string>
 #include <vector>
 #include <unordered_set>
@@ -24,11 +25,13 @@ public:
           possibleWords(dictionary) {
     }
 
+    std::string getInitialGuess();
+
     void processGuessResults(const std::string &wordGuessed, const std::string &codeInput);
 
-    std::string getNextWordGuess();
+    std::string getNextWordGuess() const;
 
-    void printGuessesStack();
+    void printGuessesStack() const;
 
     bool isSolutionFound() const {
         return greenMatcher.isComplete();
@@ -64,6 +67,7 @@ private:
 
     std::vector<std::string> possibleWords;
     std::queue<std::pair<std::string, std::string> > guesses; // pair of <word guessed, code input>
+    std::mt19937 rng{std::random_device{}()};
 };
 
 
