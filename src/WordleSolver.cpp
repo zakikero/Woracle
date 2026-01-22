@@ -14,11 +14,37 @@ void WordleSolver::processGuessResults(const std::string &wordGuessed, const std
         throw std::invalid_argument("Word guessed and code input must have the same length.");
     }
     addGuess(wordGuessed, codeInput);
+    
+    // First pass: count green and yellow letters to know the minimum count
+    std::unordered_map<char, int> greenYellowCount;
+    for (size_t i = 0; i < codeInput.length(); i++) {
+        char letter = wordGuessed[i];
+        char codeChar = codeInput[i];
+        
+        if (codeChar == 'g' || codeChar == 'y') {
+            greenYellowCount[letter]++;
+        }
+    }
+    
+    // Second pass: process each letter
     for (size_t i = 0; i < codeInput.length(); i++) {
         char letter = wordGuessed[i];
 
         if (const char codeChar = codeInput[i]; codeChar == 'b') {
-            addBlackLetter(letter);
+            // A black letter means the solution has exactly the count we found in green/yellow
+            // (or 0 if none were green/yellow)
+            if (greenYellowCount.contains(letter)) {
+                // There are some green/yellow instances, so exact count is known
+                // Only set if we haven't determined the count yet, or verify consistency
+                if (!letterExactCount.contains(letter)) {
+                    letterExactCount[letter] = greenYellowCount[letter];
+                }
+                // Note: if letterExactCount already has this letter, the count should be consistent
+                // across guesses (the actual count in the solution doesn't change)
+            } else {
+                // No green/yellow instances, so this letter doesn't appear at all
+                addBlackLetter(letter);
+            }
         } else if (codeChar == 'y') {
             addYellowLetter(letter, i);
         } else if (codeChar == 'g') {
@@ -82,9 +108,23 @@ void WordleSolver::filterPossibleWords() {
 void WordleSolver::filterOutBlackLetters() {
     std::erase_if(possibleWords,
                   [this](const std::string &word) {
-                      return std::ranges::any_of(word, [this](const char &letter) {
-                          return blackLetters.contains(letter);
-                      });
+                      // Check if word contains any truly black letters (letters not in the solution at all)
+                      for (const char blackLetter : blackLetters) {
+                          if (word.find(blackLetter) != std::string::npos) {
+                              return true;
+                          }
+                      }
+                      
+                      // Check if word has the exact count for letters with known exact counts
+                      for (const auto &[letter, exactCount] : letterExactCount) {
+                          int count = std::count(word.begin(), word.end(), letter);
+                          // Word must have exactly this many of this letter
+                          if (count != exactCount) {
+                              return true;
+                          }
+                      }
+                      
+                      return false;
                   });
 }
 
