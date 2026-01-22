@@ -11,6 +11,10 @@ set(SOURCES
         include/WordleSolver.h
         src/WordleSolver.cpp
         include/WordleSolver.h
+        src/SolutionMatcher.cpp
+        include/SolutionMatcher.h
+        src/PositionalExclusionMap.cpp
+        include/PositionalExclusionMap.h
 )
 
 add_executable(woracle ${SOURCES})
