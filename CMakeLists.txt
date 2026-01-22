@@ -5,7 +5,15 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCES
-    src/main.cpp
+        main.cpp
+        include/DictionaryReader.h
+        src/DictionaryReader.cpp
+        include/WordleSolver.h
+        src/WordleSolver.cpp
+        src/SolutionMatcher.cpp
+        include/SolutionMatcher.h
+        src/PositionalExclusionMap.cpp
+        include/PositionalExclusionMap.h
 )
 
 add_executable(woracle ${SOURCES})
@@ -18,3 +26,5 @@ else()
 endif()
 
 target_include_directories(woracle PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+target_include_directories(woracle PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
