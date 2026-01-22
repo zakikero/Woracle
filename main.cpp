@@ -2,13 +2,14 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <vector>
 #include <chrono>
+#include <filesystem>
 
 #include "DictionaryReader.h"
+#include "WordleSolver.h"
 
-const std::string DEFAULT_DICTIONARY_PATH = "./fiveLetterWords/words.txt";
+const std::string DEFAULT_DICTIONARY_PATH = "../src/fiveLetterWords/words.txt";
 
 bool isCodeInputValid(const std::string &codeInput) {
     if (codeInput.length() != 5) return false;
@@ -18,26 +19,39 @@ bool isCodeInputValid(const std::string &codeInput) {
     });
 }
 
+std::string toUpper(const std::string &input) {
+    std::string transformedInput = input;
+    std::ranges::transform(transformedInput, transformedInput.begin(),
+                           [](const unsigned char &c) { return std::toupper(c); });
+    return transformedInput;
+}
+
 
 int main() {
-    std::vector<std::string> dictionary = timedReadDictionary(DEFAULT_DICTIONARY_PATH);
-
-    std::cout <<
-            "input the word FLUTE to start and give me the color of each letters in sequence \nfor example : ygbyb " <<
-            std::endl;
+    WordleSolver solver(timedReadDictionary(DEFAULT_DICTIONARY_PATH));
 
     std::string codeInput;
+    std::string currentGuess = "flute";
     while (true) {
+        std::cout << "Current guess :\t" << toUpper(currentGuess) << std::endl;
+
         std::cout << "Enter code :\t";
         std::cin >> codeInput;
-        if (!isCodeInputValid(codeInput)) continue;
 
-        // add the code to the previous word
+        if (!isCodeInputValid(codeInput)) {
+            std::cout << "Invalid code input. Please enter a 5-character string using 'g', 'y', and 'b' only." <<
+                    std::endl;
+            continue;
+        }
 
+        solver.processGuessResults(currentGuess, codeInput);
 
-        // figure out the next guess
+        if (solver.isSolutionFound()) {
+            std::cout << "Solution found! The word is: " << toUpper(solver.getSolutionPattern()) << std::endl;
+            break;
+        }
 
+        currentGuess = solver.getNextWordGuess();
     }
-
     return 0;
 }
