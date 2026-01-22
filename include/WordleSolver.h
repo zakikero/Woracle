@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <unordered_set>
+#include <unordered_map>
 
 #include "PositionalExclusionMap.h"
 #include "SolutionMatcher.h"
@@ -59,6 +60,7 @@ private:
     std::unordered_set<char> yellowLetters;
     PositionalExclusionMap yellowExclusionsMap;
     SolutionMatcher greenMatcher;
+    std::unordered_map<char, int> letterExactCount; // tracks exact count of letters we know about
 
     std::vector<std::string> possibleWords;
     std::queue<std::pair<std::string, std::string> > guesses; // pair of <word guessed, code input>
