@@ -9,23 +9,32 @@
 #include <stdexcept>
 
 
+std::string WordleSolver::getInitialGuess() {
+    if (possibleWords.empty()) {
+        return DEFAULT_STARTING_WORD;
+    }
+
+    std::uniform_int_distribution<size_t> dist(0, possibleWords.size() - 1);
+    return possibleWords[dist(rng)];
+}
+
 void WordleSolver::processGuessResults(const std::string &wordGuessed, const std::string &codeInput) {
     if (wordGuessed.length() != codeInput.length()) {
         throw std::invalid_argument("Word guessed and code input must have the same length.");
     }
     addGuess(wordGuessed, codeInput);
-    
+
     // First pass: count green and yellow letters to know the minimum count
     std::unordered_map<char, int> greenYellowCount;
     for (size_t i = 0; i < codeInput.length(); i++) {
         char letter = wordGuessed[i];
         char codeChar = codeInput[i];
-        
+
         if (codeChar == 'g' || codeChar == 'y') {
             greenYellowCount[letter]++;
         }
     }
-    
+
     // Second pass: process each letter
     for (size_t i = 0; i < codeInput.length(); i++) {
         char letter = wordGuessed[i];
@@ -57,7 +66,7 @@ void WordleSolver::processGuessResults(const std::string &wordGuessed, const std
     filterPossibleWords();
 }
 
-std::string WordleSolver::getNextWordGuess() {
+std::string WordleSolver::getNextWordGuess() const {
     printGuessesStack();
 
     if (possibleWords.empty()) {
@@ -71,7 +80,7 @@ std::string WordleSolver::getNextWordGuess() {
     return nextGuess;
 }
 
-void WordleSolver::printGuessesStack() {
+void WordleSolver::printGuessesStack() const {
     std::queue<std::pair<std::string, std::string> > tempGuesses = guesses;
     std::cout << "Guesses made so far:" << std::endl;
     while (!tempGuesses.empty()) {
@@ -109,21 +118,20 @@ void WordleSolver::filterOutBlackLetters() {
     std::erase_if(possibleWords,
                   [this](const std::string &word) {
                       // Check if word contains any truly black letters (letters not in the solution at all)
-                      for (const char blackLetter : blackLetters) {
+                      for (const char blackLetter: blackLetters) {
                           if (word.find(blackLetter) != std::string::npos) {
                               return true;
                           }
                       }
-                      
+
                       // Check if word has the exact count for letters with known exact counts
-                      for (const auto &[letter, exactCount] : letterExactCount) {
-                          int count = std::count(word.begin(), word.end(), letter);
+                      for (const auto &[letter, exactCount]: letterExactCount) {
                           // Word must have exactly this many of this letter
-                          if (count != exactCount) {
+                          if (const int count = std::ranges::count(word, letter); count != exactCount) {
                               return true;
                           }
                       }
-                      
+
                       return false;
                   });
 }
