@@ -28,4 +28,4 @@ endif()
 
 target_include_directories(woracle PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-include_directories(woracle PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(woracle PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
