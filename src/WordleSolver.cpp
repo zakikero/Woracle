@@ -10,6 +10,9 @@
 
 
 void WordleSolver::processGuessResults(const std::string &wordGuessed, const std::string &codeInput) {
+    if (wordGuessed.length() != codeInput.length()) {
+        throw std::invalid_argument("Word guessed and code input must have the same length.");
+    }
     addGuess(wordGuessed, codeInput);
     for (size_t i = 0; i < codeInput.length(); i++) {
         char letter = wordGuessed[i];
