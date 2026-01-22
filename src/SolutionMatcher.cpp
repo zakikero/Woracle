@@ -7,7 +7,7 @@
 #include <stdexcept>
 
 void SolutionMatcher::addLetterAtPosition(const char &letter, const size_t &position) {
-    if (position < 0 || position >= 5) {
+    if (position >= 5) {
         throw std::out_of_range("Position must be between 0 and 4");
     }
     solutionPattern[position] = letter;
