@@ -1,9 +1,7 @@
-#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <chrono>
 #include <filesystem>
 
 #include "DictionaryReader.h"
@@ -20,7 +18,6 @@ int main() {
 
     while (true) {
         std::cout << "Current guess :\t" << toUpper(currentGuess) << std::endl;
-
         std::cout << "Enter code :\t";
         std::cin >> codeInput;
 
