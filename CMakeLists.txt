@@ -16,6 +16,8 @@ set(SOURCES
         include/PositionalExclusionMap.h
         include/HelperFunctions.h
         src/HelperFunctions.cpp
+        src/BenchmarkChrono.cpp
+        include/BenchmarkChrono.h
 )
 
 add_executable(woracle ${SOURCES})
