@@ -8,6 +8,7 @@
 *.user.*
 *.vcxproj*
 *.code-workspace
+*.iml
 
 # Compiled binaries
 *.exe
